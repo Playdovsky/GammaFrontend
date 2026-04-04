@@ -13,7 +13,7 @@ function submit() {
 </script>
 
 <template>
-  <h1 class="green">Contact us!</h1>
+  <h1 class="green">Contact me!</h1>
   <form @submit.prevent="submit">
     <label for="name">Your name</label>
     <input id="name" v-model="contactForm.name" type="text" required />

@@ -11,7 +11,7 @@ import HelloWorld from './components/HelloWorld.vue'
       <HelloWorld msg="Gamma Γ" />
 
       <nav>
-        <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/health">Health</RouterLink>
         <RouterLink to="/about">About</RouterLink>
         <RouterLink to="/contact">Contact</RouterLink>
       </nav>

@@ -8,7 +8,7 @@ import HelloWorld from './components/HelloWorld.vue'
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
-      <HelloWorld msg="Gamma Γ" />
+      <HelloWorld msg="Gamma γ" />
 
       <nav>
         <RouterLink to="/health">Health</RouterLink>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import contactService from '@/services/contactService'
 
 const contactForm = ref({
   name: '',
@@ -7,8 +8,14 @@ const contactForm = ref({
   message: '',
 })
 
-function submit() {
-  alert('Thanks for your message, ' + contactForm.value.name + '!')
+async function submit() {
+  try {
+    const response = await contactService.sendContactForm(contactForm.value);
+    console.log('[INFO]', response.data);
+    alert('Thanks for your message, ' + contactForm.value.name + '!');
+  } catch (error) {
+    console.error('[ERROR]', error);
+  }
 }
 </script>
 

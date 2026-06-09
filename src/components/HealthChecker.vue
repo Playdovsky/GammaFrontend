@@ -1,15 +1,22 @@
 <script setup lang="ts">
 import healthcheckService from '@/services/healthcheckService'
+import { ref } from 'vue'
+
+const health = ref(false);
+const healthFailed = ref(false);
 
 async function checkHealth(){
+  health.value = false
+  healthFailed.value = false
+
   try{
     const response = await healthcheckService.healthStatus;
     console.log('[INFO]', response.data.message);
-    alert('Backend is healthy! Status: ' + response.data.message);
+    health.value = true;
   }
   catch (error) {
     console.error('[ERROR]', error);
-    alert('Backend is not healthy! Please check the console for more details.');
+    healthFailed.value = true;
   }
 }
 </script>
@@ -17,6 +24,12 @@ async function checkHealth(){
 <template>
   <h1 class="green">Check your back!</h1>
   <button @click="checkHealth">Click me!</button>
+  <div v-if="health" class="alert alert-dark border-success text-success-emphasis d-flex align-items-center mb-0" role="alert">
+    <span class="me-2">●</span> Backend is healthy!
+  </div>
+  <div v-if="healthFailed" class="alert alert-dark border-danger text-danger-emphasis d-flex align-items-center mb-0" role="alert">
+    <span class="me-2">▲</span> Backend is not healthy :/
+  </div>
 </template>
 
 <style scoped>
@@ -31,7 +44,6 @@ button {
   cursor: pointer;
   display: inline-block;
   width: 50%;
-  height: 75px;
   font-family:
     Inter,
     -apple-system,

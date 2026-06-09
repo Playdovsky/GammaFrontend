@@ -2,6 +2,9 @@
 import { ref } from 'vue'
 import contactService from '@/services/contactService'
 
+const success = ref(false);
+const failed = ref(false);
+
 const contactForm = ref({
   name: '',
   email: '',
@@ -9,12 +12,18 @@ const contactForm = ref({
 })
 
 async function submit() {
+  success.value = false;
+  failed.value = false;
+
   try {
     const response = await contactService.sendContactForm(contactForm.value);
     console.log('[INFO]', response.data);
-    alert('Thanks for your message, ' + contactForm.value.name + '!');
+    success.value = true;
+    failed.value = false;
   } catch (error) {
     console.error('[ERROR]', error);
+    success.value = false;
+    failed.value = true;
   }
 }
 </script>
@@ -30,6 +39,12 @@ async function submit() {
     <textarea id="message" v-model="contactForm.message" required></textarea>
     <button type="submit">Send it!</button>
   </form>
+  <div v-if="success" class="alert alert-dark border-success text-success-emphasis d-flex align-items-center mb-0" role="alert">
+    <span class="me-2">●</span> Message sent successfully!
+  </div>
+  <div v-if="failed" class="alert alert-dark border-danger text-danger-emphasis d-flex align-items-center mb-0" role="alert">
+    <span class="me-2">▲</span> Failed to send a message :/
+  </div>
 </template>
 
 <style scoped>

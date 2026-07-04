@@ -62,4 +62,8 @@ button {
 button:hover {
   background-color: #892f29;
 }
+
+.alert {
+  margin-top: 14px;
+}
 </style>

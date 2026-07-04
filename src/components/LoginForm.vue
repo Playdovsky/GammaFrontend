@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import contactService from '@/services/contactService'
+import loginService from '@/services/loginService'
 
 const success = ref(false);
 const failed = ref(false);
 
-const contactForm = ref({
-  name: '',
-  email: '',
-  message: '',
+const loginForm = ref({
+  login: '',
+  password: '',
 })
 
 async function submit() {
@@ -16,7 +15,7 @@ async function submit() {
   failed.value = false;
 
   try {
-    const response = await contactService.sendContactForm(contactForm.value);
+    const response = await loginService.login(loginForm.value);
     console.log('[INFO]', response.data);
     success.value = true;
     failed.value = false;
@@ -29,21 +28,16 @@ async function submit() {
 </script>
 
 <template>
-  <h1 class="green">Contact me!</h1>
+  <h1 class="green">Log in</h1>
   <form @submit.prevent="submit">
-    <label for="name">Your name</label>
-    <input id="name" v-model="contactForm.name" type="text" required />
-    <label for="email">email</label>
-    <input id="email" v-model="contactForm.email" type="email" required />
-    <label for="message">What do you want to tell us?</label>
-    <textarea id="message" v-model="contactForm.message" required></textarea>
-    <button type="submit">Send it!</button>
+    <label for="name">Login</label>
+    <input id="name" v-model="loginForm.login" type="text" required />
+    <label for="email">Password</label>
+    <input id="email" v-model="loginForm.password" type="password" required />
+    <button type="submit">Log in</button>
   </form>
-  <div v-if="success" class="alert alert-dark border-success text-success-emphasis d-flex align-items-center mb-0" role="alert">
-    <span class="me-2">●</span> Message sent successfully!
-  </div>
   <div v-if="failed" class="alert alert-dark border-danger text-danger-emphasis d-flex align-items-center mb-0" role="alert">
-    <span class="me-2">▲</span> Failed to send a message :/
+    <span class="me-2">▲</span> Log in failed. Check you login or password and try again :/
   </div>
 </template>
 
@@ -62,7 +56,7 @@ label {
 }
 
 input[type='text'],
-input[type='email'],
+input[type='password'],
 textarea {
   padding: 8px;
   display: block;
@@ -74,7 +68,7 @@ textarea {
 }
 
 input[type='text'],
-input[type='email'],
+input[type='password'],
 textarea,
 button {
   width: 50%;

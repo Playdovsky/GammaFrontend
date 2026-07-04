@@ -6,7 +6,7 @@ const success = ref(false);
 const failed = ref(false);
 
 const loginForm = ref({
-  login: '',
+  username: '',
   password: '',
 })
 
@@ -28,10 +28,9 @@ async function submit() {
 </script>
 
 <template>
-  <h1 class="green">Log in</h1>
   <form @submit.prevent="submit">
-    <label for="name">Login</label>
-    <input id="name" v-model="loginForm.login" type="text" required />
+    <label for="name">Username</label>
+    <input id="name" v-model="loginForm.username" type="text" required />
     <label for="email">Password</label>
     <input id="email" v-model="loginForm.password" type="password" required />
     <button type="submit">Log in</button>
@@ -50,8 +49,8 @@ form {
 label {
   font-size: 18px;
   display: block;
-  margin-bottom: 2px;
-  margin-top: 8px;
+  width: 30%;
+  margin: 8px auto 2px;
   color: var(--color-heading);
 }
 
@@ -71,7 +70,9 @@ input[type='text'],
 input[type='password'],
 textarea,
 button {
-  width: 50%;
+  width: 30%;
+  margin-left: auto;
+  margin-right: auto;
   font-family:
     Inter,
     -apple-system,

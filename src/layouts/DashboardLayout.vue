@@ -8,11 +8,11 @@ import DashboardView from '../views/DashboardView.vue'
       <img alt="Vue logo" class="logo" src="@/assets/vue_gamma_logo.png" width="125" height="125" />
     </router-link>
   </header>
-  <body>
+  <main>
       <div class="wrapper">
         <DashboardView />
       </div>
-  </body>
+  </main>
 </template>
 
 <style scoped>

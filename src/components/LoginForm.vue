@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import loginService from '@/services/loginService'
+import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
+
+const router = useRouter()
+const authStore = useAuthStore()
 
 const success = ref(false);
 const failed = ref(false);
@@ -15,10 +19,10 @@ async function submit() {
   failed.value = false;
 
   try {
-    const response = await loginService.login(loginForm.value);
-    console.log('[INFO]', response.data);
+    await authStore.login(loginForm.value);
     success.value = true;
     failed.value = false;
+    router.push('/dashboard');
   } catch (error) {
     console.error('[ERROR]', error);
     success.value = false;
@@ -29,14 +33,14 @@ async function submit() {
 
 <template>
   <form @submit.prevent="submit">
-    <label for="name">Username</label>
-    <input id="name" v-model="loginForm.username" type="text" required />
-    <label for="email">Password</label>
-    <input id="email" v-model="loginForm.password" type="password" required />
+    <label for="username">Username</label>
+    <input id="username" v-model="loginForm.username" type="text" required />
+    <label for="password">Password</label>
+    <input id="password" v-model="loginForm.password" type="password" required />
     <button type="submit">Log in</button>
   </form>
   <div v-if="failed" class="alert alert-dark border-danger text-danger-emphasis d-flex align-items-center mb-0" role="alert">
-    <span class="me-2">▲</span> Log in failed. Check you login or password and try again :/
+    <span class="me-2">▲</span> Authentication failed. Please check your username or password and try again :/
   </div>
 </template>
 
@@ -55,8 +59,8 @@ label {
 }
 
 input[type='text'],
-input[type='password'],
-textarea {
+input[type='password']
+{
   padding: 8px;
   display: block;
   border-radius: 4px;
@@ -104,6 +108,10 @@ button:hover {
 }
 
 .alert {
+  align-items: center;
+  width: 46%;
   padding-left: 20px;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>

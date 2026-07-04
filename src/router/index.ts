@@ -6,6 +6,8 @@ import HealthView from '../views/HealthView.vue'
 import AboutView from '../views/AboutView.vue'
 import ContactView from '../views/ContactView.vue'
 import LoginView from '../views/LoginView.vue'
+import { useAuthStore } from '../stores/auth'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -47,17 +49,13 @@ const router = createRouter({
   ],
 })
 
-const isLoggedIn = () => {
-  // Here will be logic for logging in, for example checking a token in localStorage or cookies (don't know which one yet lol)
-  return !!localStorage.getItem('authToken');
-}
-
 const protectedRoutes = ['dashboard']
 
 router.beforeEach(async (to, from, next) => {
-  if (to.name && protectedRoutes.includes(to.name.toString()) && !isLoggedIn()) {
+  const authStore = useAuthStore()
+  if (to.name && protectedRoutes.includes(to.name.toString()) && !authStore.isAuthenticated) {
     next({
-      path: '/auth',
+      path: '/auth/login',
     })
   } else {
     next()

@@ -68,7 +68,6 @@ textarea {
 
 input[type='text'],
 input[type='password'],
-textarea,
 button {
   width: 30%;
   margin-left: auto;
@@ -86,10 +85,6 @@ button {
     'Droid Sans',
     'Helvetica Neue',
     sans-serif;
-}
-
-textarea {
-  height: 100px;
 }
 
 button {

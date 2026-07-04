@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import LoginView from '../views/LoginView.vue'
+import DashboardView from '../views/DashboardView.vue'
 </script>
 
 <template>
@@ -10,7 +10,7 @@ import LoginView from '../views/LoginView.vue'
   </header>
   <body>
       <div class="wrapper">
-        <LoginView />
+        <DashboardView />
       </div>
   </body>
 </template>

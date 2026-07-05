@@ -7,7 +7,7 @@ defineProps<{
 <template>
   <div class="greetings">
     <h1 class="green">{{ msg }}</h1>
-    <h3>A vue.js sanbox for learning & testing!</h3>
+    <h3>A vue.js sandbox for learning & testing!</h3>
   </div>
 </template>
 

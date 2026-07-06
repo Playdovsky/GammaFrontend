@@ -34,6 +34,20 @@ async function getMessages(){
     console.error('[ERROR]', error);
   }
 }
+
+async function deleteMessage(id: number){
+  const confirmed = confirm('Are you sure you want to delete this message? This is a hard delete and this action cannot be undone.');
+  if (!confirmed) return;
+  
+  try{
+    await messagesService.deleteMessage(id);
+    messages.value = messages.value.filter(message => message.id !== id);
+    console.log('[INFO] Message deleted successfully');
+  }
+  catch(error){
+    console.error('[ERROR]', error);
+  }
+}
 </script>
 
 <template>
@@ -46,6 +60,7 @@ async function getMessages(){
         
       <div v-if="message.expanded" class="message-content">
         {{ message.message }}
+        <button class="delete-btn" @click="deleteMessage(message.id)">Delete</button>
       </div>
     </div>
   </div>
@@ -57,7 +72,7 @@ async function getMessages(){
   margin-bottom: 10px;
   border-radius: 6px;
   overflow: hidden;
-  width: 60%;
+  width: 50%;
   margin: 10px auto;
 }
 
@@ -72,6 +87,7 @@ async function getMessages(){
 
 .message-content {
   padding: 16px;
+  padding-bottom: 32px;
   background-color: var(--vt-c-indigo);
   border-top: 1px solid var(--vt-c-divider-light-1);
   text-align: left;
@@ -80,5 +96,25 @@ async function getMessages(){
 .dashboard-container {
   text-align: center;
   padding: 20px;
+}
+
+.delete-btn {
+  font-size: 12px;
+  background-color: #aa4a44;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.delete-btn:hover {
+  background-color: #892f29;
 }
 </style>

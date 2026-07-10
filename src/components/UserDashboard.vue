@@ -37,6 +37,20 @@ async function getMessages(){
   }
 }
 
+async function archiveMessage(id: number){
+  const confirmed = confirm('Are you sure you want to archive this message?');
+  if (!confirmed) return;
+
+  try{
+    await messagesService.archiveMessage(id);
+    messages.value = messages.value.filter(message => message.id !== id);
+    console.log('[INFO] Message archived successfully');
+  }
+  catch(error){
+    console.error('[ERROR]', error)
+  }
+}
+
 async function deleteMessage(id: number){
   const confirmed = confirm('Are you sure you want to delete this message? This is a hard delete and this action cannot be undone.');
   if (!confirmed) return;
@@ -65,6 +79,7 @@ async function deleteMessage(id: number){
         <div class="message-footer">
           <p class="publish-info">published at: {{ message.published }}</p>
           <button class="delete-btn" @click="deleteMessage(message.id)">Delete</button>
+          <button class="archive-btn" @click="archiveMessage(message.id)">Archive</button>
         </div>
       </div>
     </div>
@@ -121,6 +136,22 @@ async function deleteMessage(id: number){
   margin-top: 5%;
   padding-top: 8px;
   padding-bottom: 8px;
+}
+
+.archive-btn {
+  font-size: 12px;
+  background-color: #7a7a7a;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+  margin-right: 6px;
+}
+
+.archive-btn:hover {
+  background-color: #646464;
 }
 
 .delete-btn {

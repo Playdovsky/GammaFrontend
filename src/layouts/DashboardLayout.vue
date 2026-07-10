@@ -44,7 +44,7 @@ async function handleLogout() {
   transform: translateX(-50%);
   padding: 0 2rem; 
   box-sizing: border-box;
-  border-bottom: 1px solid var(--vt-c-divider-light-1);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .logo {

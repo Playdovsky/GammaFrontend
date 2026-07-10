@@ -9,6 +9,8 @@ interface Message {
   name: string;
   email: string;
   message: string;
+  published: string;
+  archived: boolean;
 }
 
 interface UIMessage extends Message {
@@ -60,7 +62,10 @@ async function deleteMessage(id: number){
         
       <div v-if="message.expanded" class="message-content">
         {{ message.message }}
-        <button class="delete-btn" @click="deleteMessage(message.id)">Delete</button>
+        <div class="message-footer">
+          <p class="publish-info">published at: {{ message.published }}</p>
+          <button class="delete-btn" @click="deleteMessage(message.id)">Delete</button>
+        </div>
       </div>
     </div>
   </div>
@@ -68,12 +73,16 @@ async function deleteMessage(id: number){
 
 <style scoped>
 .message-box {
-  border: 1px solid var(--vt-c-divider-light-1);
+  border: 1px solid var(--color-border);
   margin-bottom: 10px;
   border-radius: 6px;
   overflow: hidden;
   width: 50%;
   margin: 10px auto;
+}
+
+.message-box:hover{
+  border: 1px solid var(--color-border-hover);
 }
 
 .message-header {
@@ -89,13 +98,29 @@ async function deleteMessage(id: number){
   padding: 16px;
   padding-bottom: 32px;
   background-color: var(--vt-c-indigo);
-  border-top: 1px solid var(--vt-c-divider-light-1);
+  border-top: 1px solid var(--color-border);
   text-align: left;
 }
 
 .dashboard-container {
   text-align: center;
   padding: 20px;
+}
+
+.publish-info{
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 11px;
+  float: left;
+}
+
+.message-footer{
+  align-items: center;
+  margin-top: auto;
+  justify-content: space-between;
+  border-top: 1px solid var(--color-border);
+  margin-top: 5%;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 .delete-btn {
@@ -107,11 +132,6 @@ async function deleteMessage(id: number){
   border-radius: 4px;
   cursor: pointer;
   float: right;
-  display: flex;
-  align-items: center;
-  margin-top: 20px;
-  margin-right: 10px;
-  margin-bottom: 10px;
 }
 
 .delete-btn:hover {

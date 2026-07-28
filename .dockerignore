@@ -1,0 +1,14 @@
+**/node_modules
+**/dist
+.env
+.env.local
+.env.*.local
+.git
+.gitignore
+.idea
+.vscode
+*.swp
+*.swo
+*.db
+e2e
+*.md

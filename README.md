@@ -1,73 +1,30 @@
-# gamma-frontend
+# GammaFrontend
 
-This template should help get you started developing with Vue 3 in Vite.
+> 🚀 **Gamma Project** is a CI/CD sandbox built to explore, test, and master GitHub Actions pipelines.
 
-## Recommended IDE Setup
+This repository serves as the frontend user interface for the Gamma project (which is split into separate frontend and backend repositories). It provides an interactive dashboard where users can view, archive, and manage messages served by the backend API.
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+---
 
-## Recommended Browser Setup
+## 🎯 Project Goals & Case Study
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+The main objective of GammaFrontend is to complement the Gamma ecosystem by providing a production-ready, containerized Single Page Application (SPA) designed to integrate seamlessly into a complete CI/CD workflow.
 
-## Type Support for `.vue` Imports in TS
+Key learning milestones for this repository include:
+- ⚡ **Modern Vue.js Ecosystem:** Building a responsive dashboard single-page application using **Vue 3** and modern component practices.
+- 🍍 **State Management:** Managing global application state and user authentication using **Pinia**.
+- 🌐 **API Integration:** Connecting to the backend service via **Axios** to handle message workflows (fetching, soft archiving, and deleting messages).
+- 🐋 **Multi-Stage Docker Builds:** Optimizing image size by building static assets in Node.js and serving them with a lightweight **NGINX** container in production.
+- 🔀 **Client & Proxy Routing:** Configuring NGINX for proper SPA routing and smooth frontend navigation.
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+---
 
-## Customize configuration
+## 🛠️ Tech Stack & Tooling
 
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Run End-to-End Tests with [Playwright](https://playwright.dev)
-
-```sh
-# Install browsers for the first run
-npx playwright install
-
-# When testing on CI, must build the project first
-npm run build
-
-# Runs the end-to-end tests
-npm run test:e2e
-# Runs the tests only on Chromium
-npm run test:e2e -- --project=chromium
-# Runs the tests of a specific file
-npm run test:e2e -- tests/example.spec.ts
-# Runs the tests in debug mode
-npm run test:e2e -- --debug
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+| Component | Technology | Purpose |
+| :--- | :--- | :--- |
+| **Framework** | [Vue.js](https://vuejs.org/) | Progressive JavaScript framework for building the UI |
+| **State Management** | [Pinia](https://pinia.vuejs.org/) | Intuitive, type-safe state management store for Vue |
+| **HTTP Client** | [Axios](https://axios-http.com/) | Promise-based HTTP client for API requests |
+| **Production Server** | [NGINX](https://www.nginx.com/) | High-performance web server serving built static assets |
+| **Containerization** | [Docker](https://www.docker.com/) | Multi-stage production container build (Node.js + NGINX) |

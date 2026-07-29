@@ -6,7 +6,7 @@ import HelloWorld from '../components/HelloWorld.vue'
 <template>
   <div class="page-container">
     <header>
-        <router-link to ="/auth">
+        <router-link to ="/dashboard">
           <img alt="Vue logo" class="logo" src="@/assets/vue_gamma_logo.png" width="125" height="125" />
         </router-link>
   

@@ -1,63 +1,171 @@
 <script setup lang="ts">
-import { useAuthStore } from '@/stores/auth'
-import { useRouter } from 'vue-router'
+import { ref, onMounted } from 'vue';
+import messagesService from '@/services/messagesService'
 
-const authStore = useAuthStore()
-const router = useRouter()
+const messages = ref<UIMessage[]>([])
 
-async function handleLogout() {
-  await authStore.logout()
-  router.push('/auth/login')
+interface Message {
+  id: number;
+  name: string;
+  email: string;
+  message: string;
+  published: string;
+  archived: boolean;
+}
+
+interface UIMessage extends Message {
+  expanded: boolean;
+}
+
+onMounted(() => {
+  getMessages()
+});
+
+async function getMessages(){
+  try{
+    const response = await messagesService.messages;
+    
+    messages.value = response.data.map((message: Message) => ({
+      ...message,
+      expanded: false
+    }));
+
+    console.log('[INFO]', response.data);
+  }
+  catch (error){
+    console.error('[ERROR]', error);
+  }
+}
+
+async function archiveMessage(id: number){
+  const confirmed = confirm('Are you sure you want to archive this message?');
+  if (!confirmed) return;
+
+  try{
+    await messagesService.archiveMessage(id);
+    messages.value = messages.value.filter(message => message.id !== id);
+    console.log('[INFO] Message archived successfully');
+  }
+  catch(error){
+    console.error('[ERROR]', error)
+  }
+}
+
+async function deleteMessage(id: number){
+  const confirmed = confirm('Are you sure you want to delete this message? This is a hard delete and this action cannot be undone.');
+  if (!confirmed) return;
+  
+  try{
+    await messagesService.deleteMessage(id);
+    messages.value = messages.value.filter(message => message.id !== id);
+    console.log('[INFO] Message deleted successfully');
+  }
+  catch(error){
+    console.error('[ERROR]', error);
+  }
 }
 </script>
 
 <template>
   <div class="dashboard-container">
-    <h1>This dashboard should be visible only for logged in users!</h1>
-    <p v-if="authStore.user" class="welcome-text">
-      Welcome, <strong>{{ authStore.user.username }}</strong>!
-    </p>
-    <button class="logout-btn" @click="handleLogout">Log out</button>
+    <h1>Contact messages</h1>
+    <div class="message-box" v-for="message in messages" :key="message.id">
+      <div @click="message.expanded = !message.expanded" class="message-header">
+        <strong>{{ message.name }}</strong> ({{ message.email }})
+      </div>
+        
+      <div v-if="message.expanded" class="message-content">
+        {{ message.message }}
+        <div class="message-footer">
+          <p class="publish-info">published at: {{ message.published }}</p>
+          <button class="delete-btn" @click="deleteMessage(message.id)">Delete</button>
+          <button class="archive-btn" @click="archiveMessage(message.id)">Archive</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <style scoped>
+.message-box {
+  border: 1px solid var(--color-border);
+  margin-bottom: 10px;
+  border-radius: 6px;
+  overflow: hidden;
+  width: 50%;
+  margin: 10px auto;
+}
+
+.message-box:hover{
+  border: 1px solid var(--color-border-hover);
+}
+
+.message-header {
+  background-color: #222d3d;
+  padding: 12px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  user-select: none;
+}
+
+.message-content {
+  padding: 16px;
+  padding-bottom: 32px;
+  background-color: var(--vt-c-indigo);
+  border-top: 1px solid var(--color-border);
+  text-align: left;
+}
+
 .dashboard-container {
   text-align: center;
   padding: 20px;
 }
 
-.welcome-text {
-  font-size: 18px;
-  margin: 15px 0;
-  color: var(--color-text);
+.publish-info{
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 11px;
+  float: left;
 }
 
-.logout-btn {
-  font-size: 16px;
-  background-color: #4caf50;
+.message-footer{
+  align-items: center;
+  margin-top: auto;
+  justify-content: space-between;
+  border-top: 1px solid var(--color-border);
+  margin-top: 5%;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.archive-btn {
+  font-size: 12px;
+  background-color: #7a7a7a;
   color: white;
-  padding: 10px 20px;
-  margin: 14px auto;
+  padding: 6px 12px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  display: block;
+  float: right;
+  margin-right: 6px;
 }
 
-.logout-btn:hover {
-  background-color: #45a049;
+.archive-btn:hover {
+  background-color: #646464;
 }
 
-label {
-  font-size: 18px;
-  display: block;
-  width: 30%;
-  margin: 8px auto 2px;
-  color: var(--color-heading);
+.delete-btn {
+  font-size: 12px;
+  background-color: #aa4a44;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
 }
 
-.alert {
-  padding-left: 20px;
+.delete-btn:hover {
+  background-color: #892f29;
 }
 </style>

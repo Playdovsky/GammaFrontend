@@ -14,6 +14,7 @@ apiClient.interceptors.request.use((config) => {
     const authStore = useAuthStore();
     if (authStore.accessToken) {
         config.headers.Authorization = `Bearer ${authStore.accessToken}`;
+        console.log('Authorization header set:', config.headers.Authorization);
     }
     return config;
 }, (error) => {
@@ -43,4 +44,4 @@ apiClient.interceptors.response.use(
     }
 );
 
-export default apiClient;
+export default apiClient;

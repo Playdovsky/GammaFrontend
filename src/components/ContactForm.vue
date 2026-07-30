@@ -40,10 +40,10 @@ async function submit() {
     <button type="submit">Send it!</button>
   </form>
   <div v-if="success" class="alert alert-dark border-success text-success-emphasis d-flex align-items-center mb-0" role="alert">
-    <span class="me-2">●</span> Message sent successfully!
+    <span class="me-2" id="success-message">● Message sent successfully!</span> 
   </div>
   <div v-if="failed" class="alert alert-dark border-danger text-danger-emphasis d-flex align-items-center mb-0" role="alert">
-    <span class="me-2">▲</span> Failed to send a message :/
+    <span class="me-2" id="failed-message">▲ Failed to send a message :/</span>
   </div>
 </template>
 

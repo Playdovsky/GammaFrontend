@@ -31,7 +31,7 @@ describe('ContactForm', () =>{
             message: 'This is a test message from Richard!'
         })
 
-        expect(wrapper.find("#success-message").text()).toContain('● Message sent successfully!')
+        expect(wrapper.find("#success-message").text()).toContain('Message sent successfully')
     })
     it('shows error message when API call fails', async () => {
         vi.mocked(apiClient.post).mockRejectedValue(new Error('Bad request'))
@@ -45,7 +45,7 @@ describe('ContactForm', () =>{
 
         expect(apiClient.post).toHaveBeenCalled()
 
-        expect(wrapper.find("#failed-message").text()).toContain('▲ Failed to send a message :/')
+        expect(wrapper.find("#failed-message").text()).toContain('Failed to send a message')
     })
     it('resets success and failed states before each submission', async () => {
         vi.mocked(apiClient.post).mockResolvedValue({ data: 'OK' })
@@ -57,7 +57,7 @@ describe('ContactForm', () =>{
         await wrapper.find('button').trigger('submit.prevent')
         await wrapper.vm.$nextTick()
 
-        expect(wrapper.find("#success-message").text()).toContain('● Message sent successfully!')
+        expect(wrapper.find("#success-message").text()).toContain('Message sent successfully')
 
         vi.mocked(apiClient.post).mockRejectedValue(new Error('Bad request'))
         
@@ -68,7 +68,7 @@ describe('ContactForm', () =>{
         await wrapper.vm.$nextTick()
 
         expect(wrapper.find("#success-message").exists()).toBe(false)
-        expect(wrapper.find("#failed-message").text()).toContain('▲ Failed to send a message :/')
+        expect(wrapper.find("#failed-message").text()).toContain('Failed to send a message')
         expect(apiClient.post).toHaveBeenCalled()
     })
 })

@@ -1,6 +1,6 @@
 # GammaFrontend
 
-🚀 **Gamma Project** is a CI/CD sandbox built to explore, test, and master GitHub Actions pipelines.
+> 🚀 **Gamma Project** is a CI/CD sandbox built to explore, test, and master GitHub Actions pipelines.
 
 This repository serves as the frontend user interface for the Gamma project (which is split into separate frontend and backend repositories). It provides an interactive dashboard where users can view, archive, and manage messages served by the backend API.
 
@@ -15,7 +15,7 @@ Key learning milestones for this repository include:
 * ⚡ **Modern Vue.js Ecosystem:** Building a responsive dashboard single-page application using Vue 3 and modern component practices.
 * 🍍 **State Management:** Managing global application state and user authentication using Pinia.
 * 🌐 **API Integration:** Connecting to the backend service via Axios to handle message workflows (fetching, soft archiving, and deleting messages).
-* 🧪 **Automated Testing:** Executing fast unit and integration tests using Vitest.
+* 🧪 **Unit & Integration Testing:** Executing fast unit and integration tests using Vitest.
 * 🧹 **Code Quality & Formatting:** Enforcing consistent code standards and detecting errors early with ESLint.
 * 🐋 **Multi-Stage Docker Builds:** Optimizing image size by building static assets in Node.js and serving them with a lightweight NGINX container in production.
 * 🔀 **Client & Proxy Routing:** Configuring NGINX for proper SPA routing and smooth frontend navigation.

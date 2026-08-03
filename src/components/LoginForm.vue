@@ -40,7 +40,7 @@ async function submit() {
     <button type="submit">Log in</button>
   </form>
   <div v-if="failed" class="alert alert-dark border-danger text-danger-emphasis d-flex align-items-center mb-0" role="alert">
-    <span class="me-2">▲</span> Authentication failed. Please check your username or password and try again :/
+    <span class="me-2">▲ Authentication failed. Please check your username or password and try again :/</span>
   </div>
 </template>
 

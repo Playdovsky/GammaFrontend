@@ -60,6 +60,7 @@ export const useAuthStore = defineStore('auth', {
         this.isAuthenticated = true
         return true
       } catch (error) {
+        console.error('[Error] Token refresh failed', error)
         this.user = null
         this.isAuthenticated = false
         this.accessToken = null

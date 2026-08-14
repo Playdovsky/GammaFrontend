@@ -19,6 +19,7 @@ http{
     server{
         server_name gamma-frontend;
         listen ${PORT};
+        resolver 8.8.8.8 8.8.4.4 ipv6=off;
         location /api/ {
             proxy_pass ${BACKEND_URL}/api/;
             proxy_set_header Host ${BACKEND_HOST};

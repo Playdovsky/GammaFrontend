@@ -65,3 +65,23 @@ jobs:
       if: github.event_name == 'push'
       run: |
         docker push "${{ env.AR_URI }}/${{ env.GCP_PROJECT_ID }}/${{env.AR_REPOSITORY}}/${{ env.IMAGE_NAME }}:${{ github.sha }}"
+
+  continuous-deployment:
+    name: Continuous Deployment
+    needs: continuous-integration
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Authenticate to GCP
+        id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          token_format: 'access_token'
+          workload_identity_provider: ${{ secrets.GCP_WIP }}
+          service_account: ${{ secrets.GCP_SA }}
+      - name: Deploy to Cloud run
+        uses: google-github-actions/deploy-cloudrun@v2
+        with:
+          service: ${{ env.CR_SERVICE }}
+          region: ${{ env.GCP_REGION }}
+          image: "${{ env.AR_URI }}/${{ env.GCP_PROJECT_ID }}/${{env.AR_REPOSITORY}}/${{ env.IMAGE_NAME }}:${{ github.sha }}"

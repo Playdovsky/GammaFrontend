@@ -22,7 +22,7 @@ async function checkHealth(){
 </script>
 
 <template>
-  <h1 class="green">Check your back!</h1>
+  <h1 class="green">Check your backend!</h1>
   <button @click="checkHealth">Click me!</button>
   <div v-if="health" class="alert alert-dark border-success text-success-emphasis d-flex align-items-center mb-0" role="alert">
     <span class="me-2">●</span> Backend is healthy!
@@ -35,7 +35,7 @@ async function checkHealth(){
 <style scoped>
 button {
   font-size: 16px;
-  background-color: #aa4a44;
+  background-color: #89CFF0;
   color: white;
   padding: 14px;
   margin-top: 14px;
@@ -60,7 +60,7 @@ button {
 }
 
 button:hover {
-  background-color: #892f29;
+  background-color: #0000FF;
 }
 
 .alert {
